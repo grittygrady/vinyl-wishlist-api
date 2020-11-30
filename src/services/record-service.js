@@ -9,6 +9,7 @@ const RecordService = {
       .insert(newRecord)
       .into('records')
       .returning('*')
+      .then(rows => rows[0])
   }
 }
 

@@ -7,7 +7,7 @@ const recordRouter = express.Router()
 const jsonParser = express.json()
 
 const sanitizeRecord = title => ({
-  id: title.id,
+  ...title,
   title: xss(title.title)
 })
 

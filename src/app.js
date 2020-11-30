@@ -20,7 +20,7 @@ app.use(cors())
 //   res.send('Hello, world!')
 // })
 
-app.use('/', recordRouter)
+app.use(recordRouter)
 
 app.use(function errorHandler(error, req, res, next) {
   let response
