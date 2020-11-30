@@ -12,7 +12,7 @@ const sanitizeRecord = title => ({
 })
 
 recordRouter
-  .route('/home')
+  .route('/recordslist')
   .get((req, res, next) => {
     RecordService.getAllRecords(req.app.get('db'))
       .then(records => {
