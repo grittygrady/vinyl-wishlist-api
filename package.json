@@ -4,13 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --require test/setup.js",
+    "test": "mocha --require test/setup.js --watch",
     "dev": "nodemon src/server.js",
+    "migrate": "postgrator --config postgrator-config.js",
     "start": "node src/server.js",
     "predeploy": "npm audit",
     "deploy": "git push heroku master"
   },
   "keywords": [],
+  "engines": {
+    "node": "12.18.3"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
