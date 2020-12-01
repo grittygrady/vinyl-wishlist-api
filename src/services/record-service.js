@@ -11,6 +11,13 @@ const RecordService = {
       .returning('*')
       .then(rows => rows[0])
   },
+  getById(knex, id) {
+    return knex
+      .from('records')
+      .select('*')
+      .where({ id })
+      .first()
+  },
   deleteRecord(knex, id) {
     return knex
       .from('records')

@@ -38,4 +38,30 @@ recordRouter
       .catch(next)
   })
 
+recordRouter
+  .route('/recordslist/:id')
+  .all((req, res, next) => {
+    RecordService.getById(req.app.get('db'), req.params.id)
+      .then(record => {
+        if (!record) {
+          return res.status(404).json({
+            error: { message: `Record doesn't exist`}
+          })
+        }
+        res.record = record
+        next()
+      })
+      .catch(next)
+  })
+  .get((req, res, next) => {
+    res.json(sanitizeRecord(res.record))
+  })
+  .delete((req, res, next) => {
+    RecordService.deleteRecord(req.app.get('db'), req.params.id)
+      .then(() => {
+        res.status(204).end()
+      })
+      .catch(next)
+  })
+
 module.exports = recordRouter
