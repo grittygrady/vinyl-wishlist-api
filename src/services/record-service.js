@@ -10,6 +10,12 @@ const RecordService = {
       .into('records')
       .returning('*')
       .then(rows => rows[0])
+  },
+  deleteRecord(knex, id) {
+    return knex
+      .from('records')
+      .where({ id })
+      .delete()
   }
 }
 
