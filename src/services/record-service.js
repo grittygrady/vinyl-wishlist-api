@@ -28,7 +28,9 @@ const RecordService = {
     return knex
       .from('records')
       .where({ id })
-      .update(updatedRecord)
+      .update(updatedRecord, ['id', 'title'])
+      .returning('*')
+      .then(rows => rows[0])
   }
 }
 

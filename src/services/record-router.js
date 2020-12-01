@@ -69,8 +69,8 @@ recordRouter
       req.params.id,
       updatedRecord
     )
-      .then(numRowAffected => {
-        res.status(204).end()
+      .then(updatedRecord => {
+        res.status(204).json(sanitizeRecord(updatedRecord))
       })
       .catch(next)
   })
