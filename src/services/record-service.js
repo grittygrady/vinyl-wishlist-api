@@ -23,6 +23,12 @@ const RecordService = {
       .from('records')
       .where({ id })
       .delete()
+  },
+  updateRecord(knex, id, updatedRecord) {
+    return knex
+      .from('records')
+      .where({ id })
+      .update(updatedRecord)
   }
 }
 

@@ -56,6 +56,24 @@ recordRouter
   .get((req, res, next) => {
     res.json(sanitizeRecord(res.record))
   })
+  .patch(jsonParser, (req, res, next) => {
+    const { title, id } = req.body
+    const updatedRecord = { title, id }
+    if (updatedRecord.title < 0) {
+      return res.status(400).json({
+        error: { message: `Title must be at least one character long` }
+      })
+    }
+    RecordService.updateRecord(
+      req.app.get('db'),
+      req.params.id,
+      updatedRecord
+    )
+      .then(numRowAffected => {
+        res.status(204).end()
+      })
+      .catch(next)
+  })
   .delete((req, res, next) => {
     RecordService.deleteRecord(req.app.get('db'), req.params.id)
       .then(() => {
