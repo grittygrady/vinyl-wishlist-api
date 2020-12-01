@@ -70,6 +70,7 @@ recordRouter
       updatedRecord
     )
       .then(updatedRecord => {
+        console.log(sanitizeRecord(updatedRecord))
         res.status(204).json(sanitizeRecord(updatedRecord))
       })
       .catch(next)
