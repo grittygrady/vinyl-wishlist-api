@@ -7,13 +7,15 @@ const recordRouter = express.Router()
 const jsonParser = express.json()
 
 const sanitizeRecord = title => ({
-  ...title,
+  id: title.id,
   title: xss(title.title)
 })
 
 recordRouter
   .route('/recordslist')
   .get((req, res, next) => {
+    console.log(req.session.foo)
+    req.session.foo = 3
     RecordService.getAllRecords(req.app.get('db'))
       .then(records => {
         res.json(records.map(sanitizeRecord))
@@ -71,7 +73,7 @@ recordRouter
     )
       .then(updatedRecord => {
         console.log(sanitizeRecord(updatedRecord))
-        res.status(204).json(sanitizeRecord(updatedRecord))
+        res.send(sanitizeRecord(updatedRecord))
       })
       .catch(next)
   })
