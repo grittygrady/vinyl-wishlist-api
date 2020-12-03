@@ -47,6 +47,26 @@ app.get('/', (req, res,) => {
   res.send('Hello, world!')
 })
 
+app.post('/api/login', (req, res) => {
+  const { username, password } = req.body
+  if (username && password) {
+    if (req.session.authenticated) {
+      res.json(req.session)
+    } else {
+      if (password === 'somepassword') {
+        req.session.authenticated = true
+        req.session.user = {
+          username, password
+        }
+        res.json(req.session)
+      } else {
+        res.status(403).json( { message: 'Bad Credentials' })
+      }
+    }
+  }
+  res.status(403).json( { message: 'Bad Credentials' })
+})
+
 app.use(function errorHandler(error, req, res, next) {
   let response
   if (NODE_ENV === 'production') {

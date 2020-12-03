@@ -21,7 +21,7 @@ describe(`Records endpoints`, function() {
 
   afterEach(`cleanup`, () => db('records').truncate())
 
-  describe(`GET /recordslist`, () => {
+  describe(`GET api/recordslist`, () => {
     context(`given records in the database`, () => {
       const testRecords = makeRecordsArray()
 
@@ -33,9 +33,11 @@ describe(`Records endpoints`, function() {
 
       it(`responds with 200 and all of the records`, () => {
         return supertest(app)
-          .get('/recordslist')
+          .get('/api/recordslist')
           .expect(200, testRecords)
       })
     })
   })
+  // TODO POST PATCH AND DELETE TEST SUITES - PROBABLY POSIX
+  describe
 })

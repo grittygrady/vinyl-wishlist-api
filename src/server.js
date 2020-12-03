@@ -1,10 +1,6 @@
 const app = require('./app')
 const db = require('./knex')
-const { PORT, DATABASE_URL } = require('./config')
-
-
-
-
+const { PORT } = require('./config')
 
 
 app.set('db', db)

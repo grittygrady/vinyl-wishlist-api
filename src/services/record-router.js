@@ -12,7 +12,7 @@ const sanitizeRecord = title => ({
 })
 
 recordRouter
-  .route('/recordslist')
+  .route('/api/recordslist')
   .get((req, res, next) => {
     console.log(req.session.foo)
     req.session.foo = 3
@@ -41,7 +41,7 @@ recordRouter
   })
 
 recordRouter
-  .route('/recordslist/:id')
+  .route('/api/recordslist/:id')
   .all((req, res, next) => {
     RecordService.getById(req.app.get('db'), req.params.id)
       .then(record => {
