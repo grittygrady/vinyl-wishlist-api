@@ -8,6 +8,7 @@ const recordRouter = require('./services/record-router')
 const session = require('express-session');
 const KnexSessionStore = require('connect-session-knex')(session);
 const knex = require('./knex')
+const loginRouter = require('./services/login-router')
 
 const app = express()
 
@@ -42,6 +43,7 @@ app.use(helmet())
 
 
 app.use(recordRouter)
+app.use(loginRouter)
 
 app.get('/', (req, res,) => {
   res.send('Hello, world!')

@@ -1,15 +1,19 @@
 const express = require('express')
 const xss = require('xss')
-const { route } = require('./record-router')
 
-const recordRouter = express.Router()
+const loginRouter = express.Router()
 const jsonParser = express.json()
 
-recordRouter
-  .route('/api/login')
-  .post((req, res ) => {
-    console.log('HELLO LOGIN')
+const sanitizeUser = user => ({
+  email: xss(user.username),
+  password: xss(user.password)
+})
 
+loginRouter
+  .route('/api/login')
+  .post(jsonParser, (req, res, next) => {
+    console.log('HELLO LOGIN')
+    res.status(201).send(JSON.stringify(req.body) + 'Post hit!')
   })
 
 module.exports = loginRouter
