@@ -38,7 +38,7 @@ describe(`Records endpoints`, function() {
       })
     })
   })
-  // TODO POST PATCH AND DELETE TEST SUITES - PROBABLY POSIX
+  
   describe(`POST /api/recordlist`, () => {
     it(`Creates a new record entry, responds with 201 and the new record`, () => {
       const newRecord = {
