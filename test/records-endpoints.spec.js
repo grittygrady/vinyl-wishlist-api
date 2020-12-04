@@ -39,5 +39,41 @@ describe(`Records endpoints`, function() {
     })
   })
   // TODO POST PATCH AND DELETE TEST SUITES - PROBABLY POSIX
-  describe
+  describe(`POST /api/recordlist`, () => {
+    it(`Creates a new record entry, responds with 201 and the new record`, () => {
+      const newRecord = {
+        id: '123',
+        title: 'Michael Jackson - Bad'
+      }
+      return supertest(app)
+        .post('/api/recordslist')
+        .send(newRecord)
+        .expect(res => {
+          expect(res.body.id).to.eql(newRecord.id)
+          expect(res.body.title).to.eql(newRecord.title)
+        })
+    })
+  })
+  describe(`DELETE /api/recordslist/:id`, () => {
+    const testRecords = makeRecordsArray()
+
+    beforeEach(`Insert records`, () => {
+      return db
+        .into('records')
+        .insert(testRecords)
+    })
+
+    it(`Responds with 204 and removes the record`, () => {
+      const idToRemove = '2'
+      const expectedRecords = testRecords.filter(record => record.id !== idToRemove)
+      return supertest(app)
+        .delete(`/api/recordslist/${idToRemove}`)
+        .expect(204)
+        .then(res => 
+          supertest(app)
+            .get(`/api/recordslist`)
+            .expect(expectedRecords)  
+        )
+    })
+  })
 })
