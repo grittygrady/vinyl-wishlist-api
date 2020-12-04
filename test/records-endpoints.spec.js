@@ -76,4 +76,35 @@ describe(`Records endpoints`, function() {
         )
     })
   })
+
+  describe(`PATCH /api/recordslist/:id`, () => {
+    const testRecords = makeRecordsArray()
+
+    beforeEach(`Insert records`, () => {
+      return db
+        .into('records')
+        .insert(testRecords)
+    })
+
+    it(`Responds with 204 and updates the article`, () => {
+      const idToUpdate = '2'
+      const updatedRecord = {
+        id: '2',
+        title: 'Updated record title'
+      }
+      const expectedRecord = {
+        ...testRecords[parseFloat(idToUpdate) - 1],
+        ...updatedRecord
+      }
+      return supertest(app)
+        .patch(`/api/recordslist/${idToUpdate}`)
+        .send(updatedRecord)
+        .expect(204)
+        .then(res => 
+          supertest(app)
+            .get(`/api/recordslist/${idToUpdate}`)
+            .expect(expectedRecord)
+        )
+    })
+  })
 })
