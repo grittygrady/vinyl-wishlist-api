@@ -9,6 +9,7 @@ const session = require('express-session');
 const KnexSessionStore = require('connect-session-knex')(session);
 const knex = require('./knex')
 const loginRouter = require('./services/login-router')
+const signupRouter = require('./services/signup-router')
 
 const app = express()
 
@@ -43,6 +44,7 @@ app.use(helmet())
 
 
 app.use(recordRouter)
+app.use(signupRouter)
 app.use(loginRouter)
 
 app.get('/', (req, res,) => {

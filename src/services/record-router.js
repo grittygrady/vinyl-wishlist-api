@@ -22,8 +22,12 @@ recordRouter
       .catch(next)
   })
   .post(jsonParser, (req, res, next) => {
+    // IF (!REQ.SESSION.USER) REDIRECT TO LOGIN PAGE
+    // CONDITIONALLY RENDER A MESSAGE OR ALERT
     const { id, title } = req.body
-    const newRecord = { id, title }
+    req.session.user = user
+    console.log(req.session)
+    const newRecord = { id, title, owner_id: req.session.user.username }
 
     if ( newRecord.title.length < 0 ) {
       return res.status(400).json({
