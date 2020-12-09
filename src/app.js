@@ -8,6 +8,8 @@ const recordRouter = require('./services/record-router')
 const session = require('express-session');
 const KnexSessionStore = require('connect-session-knex')(session);
 const knex = require('./knex')
+const loginRouter = require('./services/login-router')
+const signupRouter = require('./services/signup-router')
 
 const app = express()
 
@@ -19,10 +21,7 @@ const morganOption = (NODE_ENV === 'production')
     knex
   });
 
-  app.use(cors({
-    origin: 'http://localhost:3000',
-    credentials: true
-  }))
+
 
   app.use(
     session({
@@ -37,34 +36,24 @@ const morganOption = (NODE_ENV === 'production')
     })
   );
 
+  app.use(cors({
+    origin: 'http://localhost:3000',
+    
+    credentials: true
+  }))
+
+
 app.use(morgan(morganOption))
 app.use(helmet())
 
 
 app.use(recordRouter)
+app.use(signupRouter)
+app.use(loginRouter)
 
 app.get('/', (req, res,) => {
+  console.log(req.session)
   res.send('Hello, world!')
-})
-
-app.post('/api/login', (req, res) => {
-  const { username, password } = req.body
-  if (username && password) {
-    if (req.session.authenticated) {
-      res.json(req.session)
-    } else {
-      if (password === 'somepassword') {
-        req.session.authenticated = true
-        req.session.user = {
-          username, password
-        }
-        res.json(req.session)
-      } else {
-        res.status(403).json( { message: 'Bad Credentials' })
-      }
-    }
-  }
-  res.status(403).json( { message: 'Bad Credentials' })
 })
 
 app.use(function errorHandler(error, req, res, next) {

@@ -1,0 +1,9 @@
+BEGIN;
+
+CREATE TABLE users (
+  username VARCHAR PRIMARY KEY NOT NULL,
+  email VARCHAR NOT NULL,
+  password VARCHAR NOT NULL
+);
+
+COMMIT;

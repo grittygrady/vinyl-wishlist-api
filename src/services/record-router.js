@@ -1,4 +1,3 @@
-const path = require('path')
 const express = require('express')
 const xss = require('xss')
 const RecordService = require('./record-service')
@@ -14,8 +13,11 @@ const sanitizeRecord = title => ({
 recordRouter
   .route('/api/recordslist')
   .get((req, res, next) => {
-    console.log(req.session.foo)
-    req.session.foo = 3
+    console.log(req.session)
+    if (!req.session.user.username) {
+      return res.json({redirect: '/login'})
+    }
+    
     RecordService.getAllRecords(req.app.get('db'))
       .then(records => {
         res.json(records.map(sanitizeRecord))
@@ -23,8 +25,16 @@ recordRouter
       .catch(next)
   })
   .post(jsonParser, (req, res, next) => {
+    console.log(req.session)
+    if (!req.session.user) {
+      return res.json({redirect: '/login'})
+    }
+    
+    // CONDITIONALLY RENDER A MESSAGE OR ALERT
     const { id, title } = req.body
-    const newRecord = { id, title }
+    const username = req.session.user.username
+    const newRecord = { id, title, owner_id: username }
+    console.log(newRecord)
 
     if ( newRecord.title.length < 0 ) {
       return res.status(400).json({
