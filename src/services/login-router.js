@@ -13,8 +13,17 @@ const sanitizeUser = user => ({
 
 loginRouter
   .route('/api/login')
-  .get(jsonParser, (req, res, next) => {
-    bcrypt.compareSync(req.params.password, users.password)
+  .post(jsonParser, (req, res, next) => {
+    LoginService.getUser(req.app.get('db'), req.body.username)
+      .then(user => {
+        bcrypt.compareSync(req.body.password, user.password)
+          const { username, password } = sanitizeUser(req.body)
+          
+        req.session.user = {username}
+        console.log(req.session.user)
+          res.send(sanitizeUser(user))
+          
+      })
     // SELECT REQ.PARAMS.USERNAME WHERE USERS.USERNAME === BOB
     // ERROR MSG IN EVENT OF A 403 IF !USER REDIR TO LOGIN OR REGISTRATION
     // ELSE 
@@ -22,9 +31,11 @@ loginRouter
     // IF ELSE LOGIN OR REGISTER REDIRECT
     // IF SUCCESFUL req.session.user = user
     // CONTINUE RES => ETC RES SEND
-    console.log('HELLO LOGIN')
-    res.status(201).send(JSON.stringify(req.body) + 'Post hit!')
+    .catch(next)
   })
+  loginRouter
+    .get('/api/user', (req, res) => console.log(req.session, 123) || res.send(req.session.user || {}))
+
   
 
 module.exports = loginRouter

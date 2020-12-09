@@ -21,12 +21,11 @@ signupRouter
 
   SignupService.insertNewUser(req.app.get('db'), newUser)
     .then(user => {
-      req.session.user = user
-      res.status(201)
-        .json(sanitizedNewUser(user))
-        .redirect('/recordslist')
+      req.session.user = {username}
+      console.log(user)
+      res.json(sanitizedNewUser(user))
     })
-    .catch(next)
+    .catch((error) => console.error(error, 123) || next())
   })
 
 module.exports = signupRouter
