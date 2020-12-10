@@ -31,11 +31,22 @@ loginRouter
     // IF ELSE LOGIN OR REGISTER REDIRECT
     // IF SUCCESFUL req.session.user = user
     // CONTINUE RES => ETC RES SEND
+<<<<<<< Updated upstream
     .catch(next)
   })
   loginRouter
     .get('/api/user', (req, res) => console.log(req.session, 123) || res.send(req.session.user || {}))
 
   
+=======
+    .catch(next);
+});
+loginRouter.get(
+  "/api/user",
+  (req, res) =>
+    console.log(req.session, "checking session for user") ||
+    res.send({ username: req.session.user.username })
+);
+>>>>>>> Stashed changes
 
 module.exports = loginRouter
