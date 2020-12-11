@@ -14,11 +14,11 @@ recordRouter
   .route('/api/recordslist')
   .get((req, res, next) => {
     console.log(req.session)
-    if (!req.session.user.username) {
+    if (!req.session.user) {
       return res.json({redirect: '/login'})
     }
-    
-    RecordService.getAllRecords(req.app.get('db'))
+    const username = req.session.user.username
+    RecordService.getAllRecords(req.app.get('db'), username)
       .then(records => {
         res.json(records.map(sanitizeRecord))
       })
@@ -34,7 +34,7 @@ recordRouter
     const { id, title } = req.body
     const username = req.session.user.username
     const newRecord = { id, title, owner_id: username }
-    console.log(newRecord)
+    console.log(newRecord, username)
 
     if ( newRecord.title.length < 0 ) {
       return res.status(400).json({

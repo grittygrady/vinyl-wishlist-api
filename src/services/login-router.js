@@ -7,7 +7,7 @@ const loginRouter = express.Router();
 const jsonParser = express.json();
 
 const sanitizeUser = (user) => ({
-  email: xss(user.username),
+  username: xss(user.username),
   password: xss(user.password),
 });
 
@@ -35,7 +35,7 @@ loginRouter.get(
   "/api/user",
   (req, res) =>
     console.log(req.session, "checking session for user") ||
-    res.send({ username: req.session.user?.username })
+    res.send({ username: req.session.user.username })
 );
 
 module.exports = loginRouter;
