@@ -22,13 +22,6 @@ loginRouter.route("/api/login").post(jsonParser, (req, res, next) => {
       console.log(req.session.user);
       res.send({ username });
     })
-    // SELECT REQ.PARAMS.USERNAME WHERE USERS.USERNAME === BOB
-    // ERROR MSG IN EVENT OF A 403 IF !USER REDIR TO LOGIN OR REGISTRATION
-    // ELSE
-    // BCRYPT.COMPARESYNCH(UNHASHED REQ.PARAMS.PASSWORD, USER.PASSWORD)
-    // IF ELSE LOGIN OR REGISTER REDIRECT
-    // IF SUCCESFUL req.session.user = user
-    // CONTINUE RES => ETC RES SEND
     .catch(next);
 });
 loginRouter.get(
@@ -37,5 +30,20 @@ loginRouter.get(
     console.log(req.session, "checking session for user") ||
     res.send({ username: req.session.user.username })
 );
+loginRouter.delete(
+  "/api/user",
+  (req, res) => {
+    if (req.session) {
+      req.session.destroy(err => {
+        if (err) {
+          res.status(400).send('Unable to log out')
+        } else {
+          res.send('Logout successful')
+        }
+      });
+    } else {
+      res.end()
+    }
+  })
 
 module.exports = loginRouter;
