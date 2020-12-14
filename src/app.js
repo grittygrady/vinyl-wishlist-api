@@ -2,6 +2,7 @@ require('dotenv').config()
 const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
+const { CLIENT_ORIGIN } = require('./config')
 const helmet = require('helmet')
 const { NODE_ENV } = require('./config')
 const recordRouter = require('./services/record-router')
@@ -37,7 +38,7 @@ const morganOption = (NODE_ENV === 'production')
   );
 
   app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: 'https://vinyl-wishlist.vercel.app',
     
     credentials: true
   }))
