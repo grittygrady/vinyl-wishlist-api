@@ -1,6 +1,6 @@
 BEGIN;
 
-CREATE TABLE records (
+CREATE TABLE IF NOT EXISTS records (
   id VARCHAR PRIMARY KEY,
   title TEXT NOT NULL,
   owner_id VARCHAR REFERENCES users(username)

@@ -10,6 +10,7 @@ const KnexSessionStore = require('connect-session-knex')(session);
 const knex = require('./knex')
 const loginRouter = require('./services/login-router')
 const signupRouter = require('./services/signup-router')
+const config = require('./config')
 
 const app = express()
 
@@ -37,7 +38,7 @@ const morganOption = (NODE_ENV === 'production')
   );
 
   app.use(cors({
-    origin: 'http://localhost:3000' || 'https://vinyl-wishlist.vercel.app',
+    origin: config.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://vinyl-wishlist.vercel.app',
     
     credentials: true
   }))
@@ -61,9 +62,9 @@ app.use(function errorHandler(error, req, res, next) {
   if (NODE_ENV === 'production') {
     response = { error: { message: 'server error' } }
   } else {
-    console.error(error)
     response = { message: error.message, error }
   }
+  console.error(error)
   res.status(500).json(response)
 })
 
