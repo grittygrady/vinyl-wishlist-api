@@ -28,7 +28,7 @@ loginRouter.get(
   "/api/user",
   (req, res) => 
     console.log(req.session, "checking session for user") ||
-    res.send({ username: req.session.user.username })
+    res.send({ username: req.session.user?.username })
 );
 loginRouter.delete(
   "/api/user",
