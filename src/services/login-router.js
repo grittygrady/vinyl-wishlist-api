@@ -16,7 +16,7 @@ loginRouter.route("/api/login").post(jsonParser, (req, res, next) => {
     .then((user) => {
       if (!bcrypt.compareSync(req.body.password, user.password))
         throw new Error("Invalid password");
-      const { username, password } = sanitizeUser(req.body);
+      const { username } = sanitizeUser(req.body);
 
       req.session.user = { username };
       console.log(req.session.user);
@@ -26,7 +26,7 @@ loginRouter.route("/api/login").post(jsonParser, (req, res, next) => {
 });
 loginRouter.get(
   "/api/user",
-  (req, res) =>
+  (req, res) => 
     console.log(req.session, "checking session for user") ||
     res.send({ username: req.session.user.username })
 );
