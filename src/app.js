@@ -23,13 +23,13 @@ const morganOption = (NODE_ENV === 'production')
   });
 
 
-
+  const inDev = config.NODE_ENV === 'development'
   app.use(
     session({
       secret: 'amorphouscthulucritter',
       cookie: {
         maxAge: 1000 * 60 * 60 * 24 * 7,
-        secure: false,
+        secure: !inDev,
         httpOnly: false
       },
       saveUninitialized: true,
@@ -38,7 +38,7 @@ const morganOption = (NODE_ENV === 'production')
   );
 
   app.use(cors({
-    origin: config.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://vinyl-wishlist.vercel.app',
+    origin: inDev ? 'http://localhost:3000' : 'https://vinyl-wishlist.vercel.app',
     credentials: true,
     preflightContinue: true,
   }))
