@@ -38,7 +38,8 @@ const morganOption = (NODE_ENV === 'production')
   );
 
   app.use(cors({
-    origin: config.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://vinyl-wishlist.vercel.app',
+    // origin: config.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://vinyl-wishlist.vercel.app',
+    origin: '*',
     credentials: true,
     preflightContinue: true,
   }))
