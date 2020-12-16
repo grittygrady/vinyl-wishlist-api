@@ -30,7 +30,8 @@ const morganOption = (NODE_ENV === 'production')
       cookie: {
         maxAge: 1000 * 60 * 60 * 24 * 7,
         secure: !inDev,
-        httpOnly: false
+        httpOnly: false,
+        sameSite: false
       },
       saveUninitialized: true,
       store,
