@@ -31,7 +31,7 @@ const morganOption = (NODE_ENV === 'production')
         maxAge: 1000 * 60 * 60 * 24 * 7,
         secure: !inDev,
         httpOnly: false,
-        sameSite: false
+        sameSite: 'none'
       },
       saveUninitialized: true,
       store,
