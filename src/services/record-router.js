@@ -1,7 +1,6 @@
 const express = require('express')
 const xss = require('xss')
 const RecordService = require('./record-service')
-const cors = require('cors')
 
 const recordRouter = express.Router()
 const jsonParser = express.json()
@@ -10,8 +9,6 @@ const sanitizeRecord = title => ({
   id: title.id,
   title: xss(title.title)
 })
-
-app.options('*', cors())
 
 recordRouter
   .route('/api/recordslist')
