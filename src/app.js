@@ -40,7 +40,7 @@ const morganOption = (NODE_ENV === 'production')
         httpOnly: false,
         sameSite: 'none'
       },
-      resave: true,
+      resave: false,
       saveUninitialized: true,
       store,
     })
@@ -49,7 +49,7 @@ const morganOption = (NODE_ENV === 'production')
   app.use(cors({
     origin: inDev ? 'http://localhost:3000' : 'https://vinyl-wishlist.vercel.app',
     credentials: true,
-    preflightContinue: false,
+    preflightContinue: false, // CHANGED THIS FROM TRUE, IT STOPPED THE PREFLIGHT ISSUE BUT NOW IS UNEXPECTED END OF JSON
     optionsSuccessStatus: 204
   }))
 
