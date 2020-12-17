@@ -50,6 +50,7 @@ const morganOption = (NODE_ENV === 'production')
     origin: inDev ? 'http://localhost:3000' : 'https://vinyl-wishlist.vercel.app',
     credentials: true,
     preflightContinue: true,
+    optionsSuccessStatus: 204
   }))
 
 
