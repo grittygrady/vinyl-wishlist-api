@@ -15,14 +15,16 @@ const RecordService = {
   },
   getById(knex, id) {
     return knex
-      .from('records')
-      .select('*')
+      // .from('records')
+      // .select('*')
+      .select('*').from('records').join('users', {'records.owner_id': 'users.username'})
       .where({ id })
       .first()
   },
   deleteRecord(knex, id) {
     return knex
-      .from('records')
+      // .from('records')
+      .from('records').join('users', {'records.owner_id': 'users.username'})
       .where({ id })
       .delete()
   },
