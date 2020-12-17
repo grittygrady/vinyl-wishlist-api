@@ -24,6 +24,12 @@ const morganOption = (NODE_ENV === 'production')
 
   app.set('trust proxy', 1);
 
+  app.use(function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', 'https://vinyl-wishlist.vercel.app');
+    next();
+  });
+  
+
   const inDev = config.NODE_ENV === 'development'
   app.use(
     session({
