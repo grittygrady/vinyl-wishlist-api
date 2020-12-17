@@ -22,7 +22,7 @@ const morganOption = (NODE_ENV === 'production')
     knex
   });
 
-  app.set('trust proxy', 1);
+  app.set('trust proxy', 3);
 
   const inDev = config.NODE_ENV === 'development'
   app.use(
