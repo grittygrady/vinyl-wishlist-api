@@ -10,12 +10,6 @@ const sanitizeRecord = title => ({
   title: xss(title.title)
 })
 
-app.all('/', function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "https://vinyl-wishlist.vercel.app");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  next()
-});
-
 recordRouter
   .route('/api/recordslist')
   .get((req, res, next) => {
