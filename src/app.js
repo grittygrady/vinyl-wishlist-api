@@ -40,7 +40,7 @@ const morganOption = (NODE_ENV === 'production')
         httpOnly: false,
         sameSite: 'none'
       },
-      resave: false,
+      resave: true,
       saveUninitialized: true,
       store,
     })
