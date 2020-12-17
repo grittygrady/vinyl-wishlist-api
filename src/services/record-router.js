@@ -87,8 +87,7 @@ recordRouter
       })
       .catch(next)
   })
-  app.options('/recordslist/:id', cors())
-  .delete(cors(), (req, res, next) => {
+  .delete((req, res, next) => {
     RecordService.deleteRecord(req.app.get('db'), req.params.id)
       .then(() => {
         res.status(204).end()
