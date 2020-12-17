@@ -34,6 +34,7 @@ const morganOption = (NODE_ENV === 'production')
         httpOnly: false,
         sameSite: 'none'
       },
+      resave: true,
       saveUninitialized: true,
       store,
     })
