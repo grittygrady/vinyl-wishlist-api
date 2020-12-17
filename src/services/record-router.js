@@ -1,7 +1,7 @@
 const express = require('express')
 const xss = require('xss')
 const RecordService = require('./record-service')
-
+const cors =  require('cors')
 const recordRouter = express.Router()
 const jsonParser = express.json()
 
@@ -87,7 +87,8 @@ recordRouter
       })
       .catch(next)
   })
-  .delete((req, res, next) => {
+  app.options('/recordslist/:id', cors())
+  .delete(cors(), (req, res, next) => {
     RecordService.deleteRecord(req.app.get('db'), req.params.id)
       .then(() => {
         res.status(204).end()
