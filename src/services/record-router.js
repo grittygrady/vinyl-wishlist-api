@@ -10,6 +10,12 @@ const sanitizeRecord = title => ({
   title: xss(title.title)
 })
 
+app.all('/', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next()
+});
+
 recordRouter
   .route('/api/recordslist')
   .get((req, res, next) => {
@@ -53,8 +59,6 @@ recordRouter
 recordRouter
   .route('/api/recordslist/:id')
   .all((req, res, next) => {
-    res.header("Access-Control-Allow-Origin");
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
     RecordService.getById(req.app.get('db'), req.params.id)
       .then(record => {
         if (!record) {
