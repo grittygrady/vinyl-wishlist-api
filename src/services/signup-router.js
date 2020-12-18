@@ -20,7 +20,6 @@ signupRouter.route("/api/user").post(jsonParser, (req, res, next) => {
   SignupService.insertNewUser(req.app.get("db"), newUser)
     .then((user) => {
       req.session.user = { username };
-      console.log(user);
       res.send({ username });
     })
     .catch(next);

@@ -34,7 +34,6 @@ recordRouter
     const { id, title } = req.body
     const username = req.session.user.username
     const newRecord = { id, title, owner_id: username }
-    console.log(newRecord, username)
 
     if ( newRecord.title.length < 0 ) {
       return res.status(400).json({
@@ -82,7 +81,6 @@ recordRouter
       updatedRecord
     )
       .then(updatedRecord => {
-        console.log(sanitizeRecord(updatedRecord))
         res.send(sanitizeRecord(updatedRecord))
       })
       .catch(next)
