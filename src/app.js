@@ -36,12 +36,12 @@ const morganOption = (NODE_ENV === 'production')
       secret: 'amorphouscthulucritter',
       cookie: {
         maxAge: 1000 * 60 * 60 * 24 * 7,
-        secure: !inDev,
+        secure: true,
         httpOnly: true,
         sameSite: 'none'
       },
       resave: true,
-      saveUninitialized: true,
+      saveUninitialized: false,
       store,
     })
   );
