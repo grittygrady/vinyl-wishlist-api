@@ -46,12 +46,12 @@ const morganOption = (NODE_ENV === 'production')
     })
   );
 
-  // app.use(cors({
-  //   origin: inDev ? 'http://localhost:3000' : ['https://vinyl-wishlist.vercel.app', 'https://vinyl-wishlist.herokuapp.com'],
-  //   credentials: true,
-  //   preflightContinue: false, // CHANGED THIS FROM TRUE, IT FIXED THE POST AND PATCH METHODS
-  //   // optionsSuccessStatus: 204
-  // }))
+  app.use(cors({
+    origin: inDev ? 'http://localhost:3000' : ['https://vinyl-wishlist.vercel.app', 'https://vinyl-wishlist.herokuapp.com'],
+    credentials: true,
+    preflightContinue: false, // CHANGED THIS FROM TRUE, IT FIXED THE POST AND PATCH METHODS
+    // optionsSuccessStatus: 204
+  }))
 
 
 app.use(morgan(morganOption))
