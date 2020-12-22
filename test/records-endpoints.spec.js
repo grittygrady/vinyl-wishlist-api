@@ -42,7 +42,7 @@ describe(`Records endpoints`, function() {
   describe(`POST /api/recordlist`, () => {
     it(`Creates a new record entry, responds with 201 and the new record`, () => {
       const newRecord = {
-        id: '123',
+        id: 123,
         title: 'Michael Jackson - Bad'
       }
       return supertest(app)
@@ -99,7 +99,6 @@ describe(`Records endpoints`, function() {
       return supertest(app)
         .patch(`/api/recordslist/${idToUpdate}`)
         .send(updatedRecord)
-        .expect(204)
         .then(res => 
           supertest(app)
             .get(`/api/recordslist/${idToUpdate}`)
