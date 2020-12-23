@@ -81,7 +81,7 @@ recordRouter
       updatedRecord
     )
       .then(updatedRecord => {
-        res.send(sanitizeRecord(updatedRecord))
+        res.status(204).send(sanitizeRecord(updatedRecord))
       })
       .catch(next)
   })
