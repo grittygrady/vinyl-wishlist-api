@@ -31,7 +31,7 @@ const RecordService = {
       .from('records')
       .where({ id })
       .update(updatedRecord, ['id', 'title'])
-      .returning('*')
+      .returning('id', 'title')
       .then(rows => rows[0])
   }
 }
