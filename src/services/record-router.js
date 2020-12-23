@@ -28,7 +28,6 @@ recordRouter
       return res.json({redirect: '/login'})
     }
     
-    // CONDITIONALLY RENDER A MESSAGE OR ALERT
     const { id, title } = req.body
     const username = req.session.user.username
     const newRecord = { id, title, owner_id: username }
