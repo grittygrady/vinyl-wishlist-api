@@ -16,16 +16,19 @@ describe(`Users endpoints`, function() {
 
   after(`disconnect from db`, () => db.destroy())
 
-  before(`clean up the users table`, () => db('users').truncate())
+  before(`clean up the users table`, () => db('users').delete())
 
   before(`clean up the records table`, () => db('records').truncate())
 
-  afterEach(`cleanup`, () => db('users').truncate())
+  afterEach (`cleanup`, async () => {
+    await db('users').delete()
+    db('records').truncate()
+  })
 
-  afterEach(`cleanup`, () => db('records').truncate())
+  // afterEach(`cleanup`, () => db('records').truncate())
 
   describe(`POST /api/user`, () => {
-    it(`Creates a new user`, () => {
+    it(`Creates a new user on signup`, () => {
       const newUser = {
         username: 'testUser',
         email: 'test@testing.com',
@@ -36,7 +39,7 @@ describe(`Users endpoints`, function() {
         .post('/api/user')
         .send(newUser)
         .expect(res => {
-          expect(res.status).to.eql(201)
+          expect(res.status).to.eql(200)
         })
     })
   })
