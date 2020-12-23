@@ -18,9 +18,8 @@ loginRouter.route("/api/login").post(jsonParser, (req, res, next) => {
         throw new Error("Invalid password");
       const { username } = sanitizeUser(req.body);
 
-      req.session.user = { username };
-      console.log(req.session.user);
-      res.send({ username });
+      req.session.user = { username }
+      res.send({ username })
     })
     .catch(next);
 });

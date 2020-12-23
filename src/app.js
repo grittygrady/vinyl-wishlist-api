@@ -63,7 +63,6 @@ app.use(signupRouter)
 app.use(loginRouter)
 
 app.get('/', (req, res,) => {
-  console.log(req.session)
   res.send('Hello, world!')
 })
 

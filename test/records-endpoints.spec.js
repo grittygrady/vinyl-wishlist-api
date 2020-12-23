@@ -42,7 +42,7 @@ describe(`Records endpoints`, function() {
   describe(`POST /api/recordlist`, () => {
     it(`Creates a new record entry, responds with 201 and the new record`, () => {
       const newRecord = {
-        id: 123,
+        id: '123',
         title: 'Michael Jackson - Bad'
       }
       return supertest(app)

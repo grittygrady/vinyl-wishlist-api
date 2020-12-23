@@ -13,7 +13,6 @@ const sanitizeRecord = title => ({
 recordRouter
   .route('/api/recordslist')
   .get((req, res, next) => {
-    console.log(req.session)
     if (!req.session.user) {
       return res.json({redirect: '/login'})
     }
@@ -25,7 +24,6 @@ recordRouter
       .catch(next)
   })
   .post(jsonParser, (req, res, next) => {
-    console.log(req.session)
     if (!req.session.user) {
       return res.json({redirect: '/login'})
     }
