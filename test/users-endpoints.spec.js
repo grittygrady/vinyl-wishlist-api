@@ -25,8 +25,6 @@ describe(`Users endpoints`, function() {
     db('records').truncate()
   })
 
-  // afterEach(`cleanup`, () => db('records').truncate())
-
   describe(`POST /api/user`, () => {
     it(`Creates a new user on signup`, () => {
       const newUser = {
