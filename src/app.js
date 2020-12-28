@@ -6,7 +6,7 @@ const helmet = require('helmet')
 const { NODE_ENV } = require('./config')
 const recordRouter = require('./services/record-router')
 const session = require('express-session');
-const KnexSessionStore = require('connect-session-knex')(session);
+const KnexSessionStore = require('connect-session-knex')(session)
 const knex = require('./knex')
 const loginRouter = require('./services/login-router')
 const signupRouter = require('./services/signup-router')
@@ -20,15 +20,9 @@ const morganOption = (NODE_ENV === 'production')
 
   const store = new KnexSessionStore({
     knex
-  });
+  })
 
-  app.set('trust proxy', 1);
-
-  // app.use(function (req, res, next) {
-  //   res.setHeader('Access-Control-Allow-Origin', 'https://vinyl-wishlist.vercel.app');
-  //   next();
-  // });
-  
+  app.set('trust proxy', 1)
 
   const inDev = config.NODE_ENV === 'development'
   app.use(
@@ -49,8 +43,7 @@ const morganOption = (NODE_ENV === 'production')
   app.use(cors({
     origin: inDev ? 'http://localhost:3000' : ['https://vinyl-wishlist.vercel.app', 'https://vinyl-wishlist.herokuapp.com'],
     credentials: true,
-    preflightContinue: false, // CHANGED THIS FROM TRUE, IT FIXED THE POST AND PATCH METHODS
-    // optionsSuccessStatus: 204
+    preflightContinue: false
   }))
 
 

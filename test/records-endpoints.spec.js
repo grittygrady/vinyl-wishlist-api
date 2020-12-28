@@ -11,7 +11,7 @@ describe(`Records endpoints`, function() {
 
   beforeEach(function () {
     testSession = session(app)
-  });
+  })
 
   let db
 
@@ -48,12 +48,6 @@ describe(`Records endpoints`, function() {
   })
   
   describe(`POST /api/recordlist`, () => {
-    // it('should sign in', function (done) {
-    //   testSession.post('/api/recordslist')
-    //     .send({ username: 'grit', password: 'qwerasdf' })
-    //     .expect(200)
-    //     .end(done)
-    // })
     it(`Creates a new record entry, responds with 201 and the new record`, () => {
       const newRecord = {
         id: '123',
@@ -82,8 +76,6 @@ describe(`Records endpoints`, function() {
       const expectedRecords = testRecords.filter(record => record.id !== idToRemove)
       testSession.delete(`/api/recordslist/${idToRemove}`)
         .send({ username: 'grit', password: 'qwerasdf' })
-      // return supertest(app)
-      //   .delete(`/api/recordslist/${idToRemove}`)
         .expect(204)
         .then(res => 
           supertest(app)
@@ -112,8 +104,8 @@ describe(`Records endpoints`, function() {
         ...testRecords[parseFloat(idToUpdate) - 1],
         ...updatedRecord
       }
-      return supertest(app)
-        .patch(`/api/recordslist/${idToUpdate}`)
+      testSession.patch(`/api/recordslist/${idToUpdate}`)
+        .send({ username: 'grit', password: 'qwerasdf' })
         .send(updatedRecord)
         .then(res => 
           supertest(app)

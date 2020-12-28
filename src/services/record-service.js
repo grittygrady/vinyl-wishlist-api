@@ -1,9 +1,9 @@
 const RecordService = {
   getAllRecords(knex, username) {
     return knex
-      .select('*').from('records').join('users', {'records.owner_id': 'users.username'})
-      // .join('users', {'records.owner_id': 'users.username'})
-      // .select('*')
+      .select('*')
+      .from('records')
+      .join('users', {'records.owner_id': 'users.username'})
       .where('records.owner_id', 'like', username)
   },
   insertRecord(knex, newRecord) {

@@ -27,7 +27,6 @@ recordRouter
     if (!req.session.user) {
       return res.json({redirect: '/login'})
     }
-    
     const { id, title } = req.body
     const username = req.session.user.username
     const newRecord = { id, title, owner_id: username }
