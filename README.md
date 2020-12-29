@@ -1,26 +1,61 @@
-# Express Boilerplate!
+# Vinyl Wishlist
 
-This is a boilerplate project used for starting new projects!
+Vinyl Wishlist is a simple app to help you remember what records you've been wanting to purchase. As a vinyl collector myself, I frequently find myself at the record store unable to remember the records I've been looking for.
+
+This is the backend for `Vinyl Wishlist`.  A live version of the app can be found live at https://vinyl-wishlist.vercel.app/
+
+The front end client can be found at https://github.com/grittygrady/vinyl-wishlist.
+
+## Landing Page
+
+<img src="https://github.com/grittygrady/vinyl-wishlist/blob/master/src/images/previews/landing.png">
+
+## Technology
+
+#### Back End
+
+* Node and Express
+  * Authentication via Express-Sessions
+  * RESTful Api
+* Testing
+  * Supertest
+  * Mocha and Chai
+* Database
+  * Postgres
+  * Knex.js
+
+#### Production
+
+Deployed via Heroku
 
 ## Set up
 
-Complete the following steps to start a new project (NEW-PROJECT-NAME):
+Major dependencies for this repo include Postgres, Node, Knex and Express-Sessions.
 
-1. Clone this repository to your local machine `git clone BOILERPLATE-URL NEW-PROJECTS-NAME`
-2. `cd` into the cloned repository
-3. Make a fresh start of the git history for this project with `rm -rf .git && git init`
-4. Install the node dependencies `npm install`
-5. Move the example Environment file to `.env` that will be ignored by git and read by the express server `mv example.env .env`
-6. Edit the contents of the `package.json` to use NEW-PROJECT-NAME instead of `"name": "express-boilerplate",`
+To get setup locally, do the following:
 
-## Scripts
+1. Clone this repository to your machine, `cd` into the directory and run `npm install`
+2. Create the dev and test databases: `createdb -U postgres -d vinyl_wishlist` and `createdb -U postgres -d vinyl_wishlist_test`
 
-Start the application `npm start`
+3. Create a `.env` file in the project root.
 
-Start nodemon for the application `npm run dev`
+Inside this file you'll need the following:
 
-Run the tests `npm test`
+````
+NODE_ENV=development
+PORT=8000
+DATABASE_URL="postgresql://postgres@localhost/vinyl_wishlist"
+TEST_DATABASE_URL="postgresql://postgres@localhost/vinyl_wishlist_test"
 
-## Deploying
+````
 
-When your new project is ready for deployment, add a new Heroku application with `heroku create`. This will make a new git remote called "heroku" and you can then `npm run deploy` which will push to this remote's master branch.
+4. Run the migrations for dev - `npm run migrate`
+5. Run the migrations for test - `NODE_ENV=test npm run migrate`
+6. Seed the database for dev
+
+* `psql -U <db-user> -d vinyl_wishlist -f ./seeds/seed.records.sql`
+
+Now, run the command above again for the test database as well.
+
+7. Run the tests - `npm t`
+8. Start the app - `npm run dev`
